@@ -1,6 +1,10 @@
 import asyncio
+import logging
 
 from .irc_protocol import Irc
+
+
+logger = logging.getLogger(__name__)
 
 
 class TwitchClient:
@@ -15,11 +19,13 @@ class TwitchClient:
         """
         Connect to twitch and start the bot.
         """
+        logger.info("connecting to twitch")
         await self._irc.connect(username, token, "irc.twitch.tv")
         await self._irc.join_channel(channel)
 
         self.channel = channel
 
+        logger.info(f"joining channel: {channel}")
         await self._irc.start_loop(self.on_message)
 
     def run(self, *args: str) -> None:
@@ -29,4 +35,4 @@ class TwitchClient:
         asyncio.run(self.start(*args))
 
     async def on_message(self, user: str, msg: str) -> None:
-        print(f"{user}: {msg}")
+        logger.debug(f"message gotten: {user}:{msg}")
