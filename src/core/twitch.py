@@ -1,3 +1,5 @@
+import asyncio
+
 from .irc_protocol import Irc
 
 
@@ -9,7 +11,7 @@ class TwitchClient:
         self._irc = Irc()
         self.channel: str
 
-    async def start_bot(self, username: str, token: str, channel: str) -> None:
+    async def start(self, username: str, token: str, channel: str) -> None:
         """
         Connect to twitch and start the bot.
         """
@@ -19,6 +21,12 @@ class TwitchClient:
         self.channel = channel
 
         await self._irc.start_loop(self.on_message)
+
+    def run(self, *args: str) -> None:
+        """
+        Start the bot, this is not run with async.
+        """
+        asyncio.run(self.start(*args))
 
     async def on_message(self, user: str, msg: str) -> None:
         print(f"{user}: {msg}")
