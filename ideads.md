@@ -11,4 +11,3 @@ Now how will they earn money if they lost it all?
 * they could just get like 5 gold if they hit 0.
 * we could give them gold for the time they are in chat, but that would need to us to call a api whenever we want to check if they should get gold.
 
-
