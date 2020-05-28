@@ -1,4 +1,4 @@
-from .core.twitch import TwitchClient
+from .core import TwitchClient
 
 from .secret import TOKEN
 
